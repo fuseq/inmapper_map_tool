@@ -1,0 +1,68 @@
+
+#map {
+  height: 100vh;
+  width: 100%;
+}
+
+#controls {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 1000;
+  text-align: left;
+}
+
+.draggable-img-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.draggable-img {
+  width: 80px;
+  height: auto;
+  cursor: grab;
+}
+
+.resize-handle {
+  position: absolute;
+  right: -6px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  cursor: se-resize;
+}
+
+button,
+input[type="file"] {
+  margin-bottom: 5px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+#coordinates {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #5e5b5b;
+  font-size: 15px;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #efefef;
+  margin-bottom: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #dfdcdc;
+}

@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>OpenStreetMap - Görsel Sürükle & Yeniden Boyutlandır</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="controls">
+    <label for="file-upload" class="custom-file-upload">
+      Select File
+    </label>
+    <input id="file-upload" type="file" />
+    <br />
+    <button id="toggleModeBtn" disabled>Mod: Map</button>
+    <br />
+    <button id="addMarkersBtn" disabled>Get Coordinates</button>
+    <br />
+    <div id="coordinates"></div>
+  </div>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
