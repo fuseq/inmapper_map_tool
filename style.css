@@ -1,4 +1,3 @@
-
 #map {
   height: 100vh;
   width: 100%;
@@ -25,14 +24,35 @@
 
 .resize-handle {
   position: absolute;
-  right: -6px;
-  top: -6px;
+  right: 2px;
+  /* biraz içeri */
+  bottom: 2px;
+  /* biraz içeri */
   width: 12px;
   height: 12px;
   background: #fff;
   border: 2px solid #000;
   border-radius: 50%;
   cursor: se-resize;
+}
+
+#coordinatesDiv {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  z-index: 1000;
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  display: none;
+  /* Başlangıçta görünmez */
+  white-space: pre-line;
+
 }
 
 button,
@@ -42,11 +62,7 @@ input[type="file"] {
   font-size: 13px;
 }
 
-#coordinates {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: bold;
-}
+
 
 input[type="file"] {
   display: none;
@@ -65,4 +81,86 @@ input[type="file"] {
 
 .custom-file-upload:hover {
   background-color: #dfdcdc;
+}
+
+#controls input[type="range"] {
+  width: 100px;
+}
+
+:root {
+  --rad: .7rem;
+  --dur: .3s;
+  --color-dark: #2f2f2f;
+  --color-light: #fff;
+  --color-brand: #57bd84;
+  --font-fam: 'Lato', sans-serif;
+  --height: 3rem; /* Yüksekliği daha da küçültüyoruz */
+  --btn-width: 3rem; /* Go butonunun genişliğini arttırdık */
+  --bez: cubic-bezier(0, 0, 0.43, 1.49);
+}
+
+/* Search Bar Kontrolü */
+#ar-search-form {
+  position: absolute;
+  top: 20px; /* Üstten 20px mesafe */
+  right: 20px; /* Sağdan 20px mesafe */
+  z-index: 1000; /* Haritanın üstünde görünmesi için */
+  width: 15rem; /* Genişliği 3'te 1 kadar küçülttük */
+  background: var(--color-brand);
+  border-radius: var(--rad);
+  opacity: 0.8; /* Opaklık */
+}
+
+/* Input ve Button Stili */
+#ar-search-box,
+#ar-search-btn {
+  height: var(--height);
+  font-family: var(--font-fam);
+  border: 0;
+  color: var(--color-dark);
+  font-size: 1.4rem; /* Yazı boyutunu daha da küçülttük */
+}
+
+#ar-search-box {
+  outline: 0;
+  width: 100%;
+  background: var(--color-light);
+  padding: 0 0.8rem; /* Padding'i küçülttük */
+  border-radius: var(--rad);
+  appearance: none;
+  transition: all var(--dur) var(--bez);
+  transition-property: width, border-radius;
+  z-index: 1;
+  position: relative;
+}
+
+#ar-search-btn {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--btn-width); /* Go butonunun genişliğini arttırdık */
+  font-weight: bold;
+  background: var(--color-brand);
+  border-radius: 0 var(--rad) var(--rad) 0;
+}
+
+#ar-search-box:valid {
+  border-radius: var(--rad) 0 0 var(--rad);
+  width: calc(100% - var(--btn-width));
+}
+
+#ar-search-box:valid + #ar-search-btn {
+  display: block;
+}
+
+/* Arama Formu Label */
+#ar-search-form label {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
 }

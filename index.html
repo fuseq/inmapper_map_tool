@@ -11,6 +11,11 @@
 </head>
 
 <body>
+  <form id="ar-search-form" role="search" onsubmit="handleSearch(event)">
+    <label for="ar-search-box">Search</label>
+    <input id="ar-search-box" type="search" placeholder="Search..." required />
+    <button id="ar-search-btn" type="submit">Go</button>
+  </form>
   <div id="controls">
     <label for="file-upload" class="custom-file-upload">
       Select File
@@ -21,7 +26,10 @@
     <br />
     <button id="addMarkersBtn" disabled>Get Coordinates</button>
     <br />
-    <div id="coordinates"></div>
+  
+    <input type="range" id="opacityRange" min="0" max="1" step="0.01" value="1">
+    <br />
+    <div id="coordinatesDiv"></div>
   </div>
   <div id="map"></div>
 
