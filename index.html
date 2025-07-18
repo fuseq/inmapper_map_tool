@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -7,6 +6,7 @@
   <title>OpenStreetMap - Görsel Sürükle & Yeniden Boyutlandır</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -14,23 +14,37 @@
   <form id="ar-search-form" role="search" onsubmit="handleSearch(event)">
     <label for="ar-search-box">Search</label>
     <input id="ar-search-box" type="search" placeholder="Search..." required />
-    <button id="ar-search-btn" type="submit">Go</button>
+    <button id="ar-search-btn" type="submit"><i class="fas fa-search"></i></button>
   </form>
+
   <div id="controls">
     <label for="file-upload" class="custom-file-upload">
-      Select File
+      <i class="fas fa-file-upload"></i> Select File
     </label>
     <input id="file-upload" type="file" />
-    <br />
-    <button id="toggleModeBtn" disabled>Mod: Map</button>
-    <br />
-    <button id="addMarkersBtn" disabled>Get Coordinates</button>
-    <br />
-  
-    <input type="range" id="opacityRange" min="0" max="1" step="0.01" value="1">
-    <br />
-    <div id="coordinatesDiv"></div>
+
+    <button id="toggleModeBtn" disabled><i class="fas fa-map"></i> Mod: Map</button>
+    <button id="addMarkersBtn" disabled><i class="fas fa-crosshairs"></i> Get Coordinates</button>
+
+    <div class="opacity-control">
+      <label for="opacityRange"><i class="fas fa-adjust"></i> Opacity</label>
+      <input type="range" id="opacityRange" min="0" max="1" step="0.01" value="1">
+    </div>
+
+    <div class="rotation-control">
+      <label for="rotationRange"><i class="fas fa-sync-alt"></i> Rotation</label>
+      <div class="rotation-inputs">
+        <input type="range" id="rotationRange" min="0" max="359" step="1" value="0" disabled>
+        <input type="number" id="rotationDegree" min="0" max="359" value="0" disabled>
+      </div>
+    </div>
+
+    <div id="image-info">
+      <span id="active-image-label">No active image</span>
+    </div>
   </div>
+
+  <div id="coordinatesDiv"></div>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

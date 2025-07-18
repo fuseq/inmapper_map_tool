@@ -1,131 +1,341 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* Map Container */
 #map {
   height: 100vh;
   width: 100%;
 }
 
+/* Controls Panel */
 #controls {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 20px;
+  left: 20px;
   z-index: 1000;
-  text-align: left;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 220px;
+  backdrop-filter: blur(5px);
 }
 
+/* Custom Leaflet Layer Control Position */
+.leaflet-control-layers {
+  position: absolute !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  top: unset !important;
+}
+
+/* Buttons & File Upload */
+button,
+.custom-file-upload {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #3498db;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button:hover,
+.custom-file-upload:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-transition {
+  transform: scale(1.05);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* Opacity Control */
+.opacity-control {
+  margin: 10px 0;
+}
+
+.opacity-control label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+#opacityRange {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+}
+
+#opacityRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+}
+
+/* Image Info */
+#image-info {
+  display: none;
+}
+
+/* Draggable Image Styles */
 .draggable-img-wrapper {
   position: relative;
   display: inline-block;
+  transition: all 0.2s ease;
 }
 
 .draggable-img {
   width: 80px;
   height: auto;
   cursor: grab;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  /* Gölge de kaldırıldı */
+  border: none;
+  border-radius: 3px;
 }
 
+.draggable-img-wrapper.active-image .draggable-img {
+  border: none;
+  box-shadow: none;
+  /* Gölge de kaldırıldı */
+}
+
+/* Resize Handle */
 .resize-handle {
   position: absolute;
   right: 2px;
-  /* biraz içeri */
   bottom: 2px;
-  /* biraz içeri */
   width: 12px;
   height: 12px;
   background: #fff;
-  border: 2px solid #000;
+  border: 2px solid #3498db;
   border-radius: 50%;
   cursor: se-resize;
+  z-index: 1001;
 }
 
-#coordinatesDiv {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Close Button */
+.image-close-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
-  color: #fff;
-  z-index: 1000;
-  padding: 10px;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 5px;
-  display: none;
-  /* Başlangıçta görünmez */
-  white-space: pre-line;
-
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+  transition: all 0.2s ease;
+  z-index: 1001;
 }
 
-button,
-input[type="file"] {
-  margin-bottom: 5px;
-  padding: 6px 10px;
+.image-close-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Coordinates Display */
+#coordinatesDiv {
+  position: absolute;
+  bottom: 450px; /* Controls div'in üzerinde yer alacak */
+  left: 5px; /* Controls div ile aynı hizada */
+  z-index: 1000;
+  padding: 12px 15px;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: none;
+  white-space: pre-line;
+  backdrop-filter: blur(5px);
+  transition: opacity 0.5s ease;
+  max-width: 220px; /* Controls div ile aynı genişlikte */
   font-size: 13px;
 }
 
-
-
-input[type="file"] {
-  display: none;
-}
-
-.custom-file-upload {
-  border: 1px solid #5e5b5b;
-  font-size: 15px;
-  display: inline-block;
-  padding: 6px 12px;
+/* Close button for coordinates */
+.close-coords-btn {
+  background: none;
+  border: none;
+  color: #777;
   cursor: pointer;
-  background-color: #efefef;
-  margin-bottom: 5px;
-  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 0;
 }
 
-.custom-file-upload:hover {
-  background-color: #dfdcdc;
+.close-coords-btn:hover {
+  color: #e74c3c;
+  background: rgba(0, 0, 0, 0.05);
+  transform: none;
 }
 
-#controls input[type="range"] {
-  width: 100px;
+/* Drop Indicator */
+#drop-indicator {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(52, 152, 219, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
+/* Resize Indicator */
+#resize-indicator {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(120%);
+  transition: transform 0.3s ease;
+  z-index: 2000;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification.error {
+  border-left: 4px solid #e74c3c;
+}
+
+.notification.info {
+  border-left: 4px solid #3498db;
+}
+
+.notification i {
+  font-size: 20px;
+}
+
+.notification.error i {
+  color: #e74c3c;
+}
+
+.notification.info i {
+  color: #3498db;
+}
+
+/* Search Bar Styles */
 :root {
   --rad: .7rem;
   --dur: .3s;
   --color-dark: #2f2f2f;
   --color-light: #fff;
-  --color-brand: #57bd84;
-  --font-fam: 'Lato', sans-serif;
-  --height: 3rem; /* Yüksekliği daha da küçültüyoruz */
-  --btn-width: 3rem; /* Go butonunun genişliğini arttırdık */
+  --color-brand: #3498db;
+  --font-fam: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --height: 3rem;
+  --btn-width: 3rem;
   --bez: cubic-bezier(0, 0, 0.43, 1.49);
 }
 
-/* Search Bar Kontrolü */
 #ar-search-form {
   position: absolute;
-  top: 20px; /* Üstten 20px mesafe */
-  right: 20px; /* Sağdan 20px mesafe */
-  z-index: 1000; /* Haritanın üstünde görünmesi için */
-  width: 15rem; /* Genişliği 3'te 1 kadar küçülttük */
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 15rem;
   background: var(--color-brand);
   border-radius: var(--rad);
-  opacity: 0.8; /* Opaklık */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
 }
 
-/* Input ve Button Stili */
+#ar-search-form:hover {
+  opacity: 1;
+}
+
 #ar-search-box,
 #ar-search-btn {
   height: var(--height);
   font-family: var(--font-fam);
   border: 0;
   color: var(--color-dark);
-  font-size: 1.4rem; /* Yazı boyutunu daha da küçülttük */
+  font-size: 1.4rem;
 }
 
 #ar-search-box {
   outline: 0;
   width: 100%;
   background: var(--color-light);
-  padding: 0 0.8rem; /* Padding'i küçülttük */
+  padding: 0 0.8rem;
   border-radius: var(--rad);
   appearance: none;
   transition: all var(--dur) var(--bez);
@@ -139,7 +349,7 @@ input[type="file"] {
   position: absolute;
   top: 0;
   right: 0;
-  width: var(--btn-width); /* Go butonunun genişliğini arttırdık */
+  width: var(--btn-width);
   font-weight: bold;
   background: var(--color-brand);
   border-radius: 0 var(--rad) var(--rad) 0;
@@ -150,11 +360,12 @@ input[type="file"] {
   width: calc(100% - var(--btn-width));
 }
 
-#ar-search-box:valid + #ar-search-btn {
-  display: block;
+#ar-search-box:valid+#ar-search-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Arama Formu Label */
 #ar-search-form label {
   position: absolute;
   clip: rect(1px, 1px, 1px, 1px);
@@ -163,4 +374,108 @@ input[type="file"] {
   height: 1px;
   width: 1px;
   overflow: hidden;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  #controls {
+    max-width: 180px;
+    padding: 12px;
+  }
+
+  #ar-search-form {
+    width: 12rem;
+  }
+
+  #coordinatesDiv {
+    max-width: 250px;
+    font-size: 12px;
+  }
+}
+
+.rotation-control {
+  display: none;
+}
+
+.rotation-control label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.rotation-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#rotationRange {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+}
+
+#rotationRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+}
+
+#rotationDegree {
+  width: 50px;
+  padding: 2px 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Rotation Handle */
+.rotation-handle {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: rgba(52, 152, 219, 0.8);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  font-size: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+.rotation-handle:hover {
+  background: rgba(52, 152, 219, 1);
+}
+
+.rotation-handle:active {
+  cursor: grabbing;
+}
+
+/* Rotate visual guide */
+.rotation-guide {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  pointer-events: none;
+  display: none;
 }
