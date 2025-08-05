@@ -21,10 +21,16 @@
     <label for="file-upload" class="custom-file-upload">
       <i class="fas fa-file-upload"></i> Select File
     </label>
-    <input id="file-upload" type="file" />
-
-    <button id="toggleModeBtn" disabled><i class="fas fa-map"></i> Mod: Map</button>
+    <input id="file-upload" type="file" /><button id="toggleModeBtn" disabled><i class="fas fa-map"></i> Mod: Map</button>
     <button id="addMarkersBtn" disabled><i class="fas fa-crosshairs"></i> Get Coordinates</button>
+    <button id="getCoordinateModeBtn"><i class="fas fa-map-marker-alt"></i> Point lat/lon</button><div class="save-load-controls">
+      <button id="saveSettingsBtn" disabled><i class="fas fa-save"></i> Save Layout</button>
+      <button id="loadSettingsBtn"><i class="fas fa-folder-open"></i> Load Layout</button>
+    </div>
+    
+    <div class="undo-control">
+      <button id="undoBtn" disabled><i class="fas fa-undo"></i> Undo</button>
+    </div>
 
     <div class="opacity-control">
       <label for="opacityRange"><i class="fas fa-adjust"></i> Opacity</label>
@@ -42,10 +48,24 @@
     <div id="image-info">
       <span id="active-image-label">No active image</span>
     </div>
-  </div>
-
-  <div id="coordinatesDiv"></div>
+  </div><div id="coordinatesDiv"></div>
   <div id="map"></div>
+  
+  <!-- Layouts Modal -->
+  <div id="layoutsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close-modal">&times;</span>
+        <h2>Saved Layouts</h2>
+      </div>
+      <div class="modal-body">
+        <div id="savedLayoutsList">
+          <!-- Saved layouts will be listed here -->
+        </div>
+        <div class="no-layouts-message">No saved layouts found</div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="script.js"></script>
